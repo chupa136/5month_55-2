@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Category, Product, Review
 from .serializers import (CategorySerializer,ProductSerializer, 
-ReviewSerializer,CategoryDetailSerializer, 
+ReviewSerializer,CategoryDetailSerializer, ProductReviewSerializer,
 ReviewDetailSerializer, ProductDetailSeralizer)
 
 
@@ -68,3 +68,9 @@ def reviews_detail_api_view(request, id):
         )
     data = ReviewDetailSerializer(review, many=False).data
     return Response(data=data)
+
+@api_view(['GET'])
+def products_reviews_api_view(request):
+    products = Product.objects.all()
+    data = ProductReviewSerializer(products, many=True).data
+    return(Response(data=data))
