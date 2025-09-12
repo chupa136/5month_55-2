@@ -20,9 +20,10 @@ STARS = ((i, '*' * i) for i in range(1, 6))
 
 class Review(models.Model):
     text = models.TextField()
+    stars = models.IntegerField(default=1, choices=STARS)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 related_name='reviews')
-    stars = models.IntegerField(default=5, choices=STARS)
+    
 
     def __str__(self):
         return self.text
