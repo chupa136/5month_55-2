@@ -1,4 +1,4 @@
-#!/home/chupa/Desktop/geeks/55-2_5month/venv/bin/python3.12
+#!/home/chupa/Desktop/geeks/55-2_5month/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
