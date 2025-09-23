@@ -20,9 +20,6 @@ from product import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/categories/', include('product.urls')),
-    path('api/v1/products/', include('product.urls')),
-    path('api/v1/users/', include('users.urls')),
-    path('api/v1/products/reviews/', views.products_reviews_api_view),
+    path('api/v1/', include('product.urls')),
     path('api/v1/users/', include('users.urls')),
 ]

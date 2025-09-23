@@ -4,8 +4,11 @@ from rest_framework import status
 from .models import Category, Product, Review
 from .serializers import (CategorySerializer,ProductSerializer, 
 ReviewSerializer,CategoryDetailSerializer, ProductReviewSerializer,
-ReviewDetailSerializer, ProductDetailSeralizer, CategoryValidateSerializer,
-ProductValidateSerializer, ReviewSerializer)
+ReviewDetailSerializer, ProductDetailSerializer, CategoryValidateSerializer,
+ProductValidateSerializer)
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.viewsets import ModelViewSet
 
 
 @api_view(['GET','POST'])
@@ -186,6 +189,32 @@ def reviews_detail_api_view(request, id):
 def products_reviews_api_view(request):
         products = Product.objects.all()
         data = ProductReviewSerializer(products, many=True).data
-        return(Response(data=data))
+        return Response(data=data)
 
-    
+class CaregoryListAPIView(ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    pagination_class = PageNumberPagination
+
+class CategoryDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategoryDetailSerializer
+    lookup_field = 'id'
+    pagination_class = PageNumberPagination
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'id'
+    pagination_class = PageNumberPagination
+
+class ReviewViewSet(ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    lookup_field = 'id'
+    pagination_class = PageNumberPagination 
+
+class ProductReviewsAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductReviewSerializer
+    pagination_class = PageNumberPagination
