@@ -53,7 +53,8 @@ def users_confirm_api_view(request):
         user_active = UserActive.objects.get(code=code)
     except UserActive.DoesNotExist:
         return Response({'error': 'Invalid code'}, status=status.HTTP_400_BAD_REQUEST)
-    user = user_active.user
+    except UserActive.MultipleObjectsReturned:
+        user = UserActive.objects.filter(code=code).first()
     if not user.is_active:
         user.is_active = True
         user.save()
